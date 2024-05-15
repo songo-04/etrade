@@ -1,5 +1,6 @@
 import User from "../model/user.mjs";
 import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 async function signup(req, res, next) {
   try {
