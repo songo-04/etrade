@@ -28,7 +28,9 @@ async function signin(req, res, next) {
     if (!isPasswordValide) {
       return res.json('user password not found')
     }
-    res.status(200).json({ message: 'User login successfully', user: isUserValide })
+    const token = jwt.sign({ user_id: isUserValide._id }, process.env.JWT_SECRET, { expires: 60 * 60 })
+
+    res.status(200).json({ message: 'User login successfully', user: isUserValide }).cookies('token', token, { httpOnly: true })
 
   } catch (err) { next(err) }
 }
