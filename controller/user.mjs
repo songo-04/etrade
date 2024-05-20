@@ -5,6 +5,8 @@ import jwt from "jsonwebtoken";
 async function signup(req, res, next) {
   try {
     const { user_name, user_email, user_password } = req.body;
+    const userckeck = await User.findOne({ user_email });
+    if (userckeck){return res.status(400).json({message: "Email already exists"})}
     if (!user_name || !user_email || !user_password) {
       return res.json('Please provide all the required fields')
     }
@@ -18,7 +20,7 @@ async function signin(req, res, next) {
 
   try {
     const { user_email, user_password } = req.body;
-    if (!user_name || !user_password) {
+    if (!user_email || !user_password) {
       return res.json('Please provide all the required fields')
     }
     const isUserValide = await User.findOne({ user_email });
