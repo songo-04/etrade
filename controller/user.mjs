@@ -40,7 +40,10 @@ async function signin(req, res, next) {
   } catch (err) { next(err) }
 }
 async function signout(req, res, next) { }
-async function update(req, res, next) { }
+async function update(req, res, next) {
+
+  const a = 0
+}
 async function deleteUser(req, res, next) { }
 
 export { signin, signup, signout, update, deleteUser }
