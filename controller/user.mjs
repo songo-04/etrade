@@ -1,7 +1,7 @@
 import User from "../model/user.mjs";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import {SECRET_KEY} from "./../config.mjs";
+import { SECRET_KEY } from "./../config.mjs";
 
 async function signup(req, res, next) {
   try {
@@ -32,10 +32,9 @@ async function signin(req, res, next) {
     if (!isPasswordValide) {
       return res.json('user password not found')
     }
-    const token = jwt.sign({ user_id: isUserValide._id },SECRET_KEY, {expiresIn: '1h'})
+    const token = jwt.sign({ user_id: isUserValide._id }, SECRET_KEY, { expiresIn: '1h' })
 
-    res.status(200).json({ message: 'User login successfully', user: isUserValide ,token: token })
-    res.status(200).cookie('token', token,{httpOnly: true, maxAge: 3600000})
+    res.json({ message: 'User login successfully', user: isUserValide, token: token }).cookie('token', token, { httpOnly: true, maxAge: 3600000 })
 
   } catch (err) { next(err) }
 }
